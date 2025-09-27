@@ -85,65 +85,65 @@ Unlike a typical blogging app, this platform introduces **gamification mechanics
 ---
 
 ## 📡 API Endpoints (Major)
+### 🔐 Auth (/api/auth)
+- POST /register — Register user
+- POST /admin/register — Register admin
+- POST /login — Login
+- POST /logout — Logout
+- POST /refresh-token — Refresh JWT
+- GET /me — Current user
+- GET /google — Google OAuth
 
-### 🔐 Auth (`/api/auth`)
-POST /register — Register user
-POST /admin/register — Register admin
-POST /login — Login
-POST /logout — Logout
-POST /refresh-token — Refresh JWT
-GET /me — Current user
-GET /google — Google OAuth
+### 👤 Users (/api/users)
+- GET / — Get all users (Admin)
+- GET /:id — Get user details (Admin)
+- PATCH /:id — Update profile (Self)
+- DELETE /:id — Delete user (Admin)
 
-### 👤 Users (`/api/users`)
-GET / — Get all users (Admin)
-GET /:id — Get user details (Admin)
-PATCH /:id — Update profile (Self)
-DELETE /:id — Delete user (Admin)
+### 📝 Posts (/api/posts)
+- POST / — Create post (Admin)
+- GET / — Get all posts
+- GET /:id — Get post details
+- PATCH /:id — Update post (Admin)
+- DELETE /:id — Delete post (Admin)
+- GET /trending — Trending posts
+- PATCH /:id/views — Increment view count
 
-### 📝 Posts (`/api/posts`)
-POST / — Create post (Admin)
-GET / — Get all posts
-GET /:id — Get post details
-PATCH /:id — Update post (Admin)
-DELETE /:id — Delete post (Admin)
-GET /trending — Trending posts
-PATCH /:id/views — Increment view count
+### 💬 Comments (/api/comments)
+- GET /:postId — Get all comments for a post
+- POST /:postId — Add comment
+- PATCH /:commentId — Edit comment
+- DELETE /:commentId — Delete comment
+- PATCH /:commentId/upVote — Upvote
+- PATCH /:commentId/downVote — Downvote
+- GET /flagged-comments — Get flagged comments (Admin)
+- PATCH /flag-comment/:commentId — Flag comment
+- PATCH /unflag-comment/:commentId — Unflag comment (Admin)
+- DELETE /flagged-comment/:commentId — Delete flagged comment (Admin)
 
-### 💬 Comments (`/api/comments`)
-GET /:postId — Get all comments for a post
-POST /:postId — Add comment
-PATCH /:commentId — Edit comment
-DELETE /:commentId — Delete comment
-PATCH /:commentId/upVote — Upvote
-PATCH /:commentId/downVote — Downvote
-GET /flagged-comments — Get flagged comments (Admin)
-PATCH /flag-comment/:commentId — Flag comment
-PATCH /unflag-comment/:commentId — Unflag comment (Admin)
-DELETE /flagged-comment/:commentId — Delete flagged comment (Admin)
+### 📂 Categories (/api/categories)
+- POST / — Create category (Admin)
+- GET / — Get all categories
+- GET /:id — Get category details
+- PATCH /:id — Update category (Admin)
+- DELETE /:id — Delete category (Admin)
 
-### 📂 Categories (`/api/categories`)
-POST / — Create category (Admin)
-GET / — Get all categories
-GET /:id — Get category details
-PATCH /:id — Update category (Admin)
-DELETE /:id — Delete category (Admin)
+### 🔖 Bookmarks (/api/bookmarks)
+- POST /:postId — Bookmark post
+- DELETE /:postId — Remove bookmark
+- GET /user/:userId — User’s bookmarks
+- PATCH /:postId/like — Like post
+- PATCH /:postId/unlike — Unlike post
 
-### 🔖 Bookmarks (`/api/bookmarks`)
-POST /:postId — Bookmark post
-DELETE /:postId — Remove bookmark
-GET /user/:userId — User’s bookmarks
-PATCH /:postId/like — Like post
-PATCH /:postId/unlike — Unlike post
+### 📊 Analytics (/api/analytics)
+- GET /posts/:postId — Post analytics
+- GET /trending — Trending analytics
+- GET /leaderboard — Leaderboard
+- PATCH /users/:userId/points — Update points (Admin)
 
-### 📊 Analytics (`/api/analytics`)
-GET /posts/:postId — Post analytics
-GET /trending — Trending analytics
-GET /leaderboard — Leaderboard
-PATCH /users/:userId/points — Update points (Admin)
+### 🤖 AI Integration (/api/aiintegration)
+- GET /summarize/:postId — AI summarization
+- POST /moderate-comment — Moderate comment
+- GET /recommendations — Recommendations
+- GET /translate/:postId — Translate post
 
-### 🤖 AI Integration (`/api/aiintegration`)
-GET /summarize/:postId — AI summarization
-POST /moderate-comment — Moderate comment
-GET /recommendations — Recommendations
-GET /translate/:postId — Translate post
