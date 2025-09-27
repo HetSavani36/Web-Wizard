@@ -21,16 +21,55 @@ Bcrypt.js — Password hashing
 
 📂 Project Structure
 Backend/
-├── config/              # App, DB, Swagger configs
-├── controllers/         # Route controllers (business logic)
-├── middlewares/         # JWT auth, role-based access, multer
-├── models/              # Mongoose models (User, Post, Comment, etc.)
-├── public/temp/         # Temporary uploads
-├── routes/              # API route definitions
-├── utils/               # Utility functions (ApiError, ApiResponse, asyncHandler)
-├── app.js               # Express app
-├── index.js             # Entry point
-└── .env                 # Environment variables
+├── config/
+│   ├── config.js
+│   ├── db.js
+│   └── swagger.js
+├── controllers/
+│   ├── aintegration.controller.js
+│   ├── analytics.controller.js
+│   ├── auth.controller.js
+│   ├── bookmark.controller.js
+│   ├── category.controller.js
+│   ├── comment.controller.js
+│   ├── post.controller.js
+│   └── user.controller.js
+├── middlewares/
+│   ├── auth.middleware.js
+│   ├── isAdmin.middleware.js
+│   └── multer.middleware.js
+├── models/
+│   ├── analytic.model.js
+│   ├── bookmark.model.js
+│   ├── category.model.js
+│   ├── comment.model.js
+│   ├── post.model.js
+│   └── user.model.js
+├── public/
+│   └── temp/
+├── routes/
+│   ├── aintegration.route.js
+│   ├── analytics.route.js
+│   ├── auth.route.js
+│   ├── bookmark.route.js
+│   ├── category.route.js
+│   ├── comment.route.js
+│   ├── post.route.js
+│   └── user.route.js
+├── utils/
+│   ├── ApiError.js
+│   ├── ApiResponse.js
+│   ├── asyncHandler.js
+│   ├── cloudinary.js
+│   └── passport.js
+├── .env
+├── .gitignore
+├── .gitkeep
+├── app.js
+├── index.js
+├── package-lock.json
+└── package.json
+
 
 🔑 Features
 ✅ Authentication & User Management
