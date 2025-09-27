@@ -7,6 +7,8 @@ import {
   deletePost,
   getTrendingPosts,
   incrementViewCount,
+  upVote,
+  downVote
 } from "../controllers/post.controller.js"; // Make sure these are exported
 import { verifyJWT } from "../middlewares/auth.middleware.js";
 import isAdmin from "../middlewares/isAdmin.middleware.js";
@@ -31,5 +33,8 @@ router.get("/trending", getTrendingPosts);
 
 // Increment post views
 router.patch("/:id/views", incrementViewCount);
+
+router.patch("/:id/upVote",verifyJWT, upVote);
+router.patch("/:id/downVote",verifyJWT ,downVote);
 
 export default router;

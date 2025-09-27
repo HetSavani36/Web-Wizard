@@ -1,5 +1,5 @@
-import Category from "../models/category.model.js"; // Make sure you have a Category model
-import asyncHandler from "express-async-handler";
+import {Category} from "../models/category.model.js"; // Make sure you have a Category model
+import { asyncHandler } from "../utils/asyncHandler.js";
 
 // @desc    Create a new category (Admin only)
 // @route   POST /categories

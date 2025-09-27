@@ -1,6 +1,6 @@
-import Post from "../models/post.model.js";
-import User from "../models/user.model.js";
-import asyncHandler from "express-async-handler";
+import {Post} from "../models/post.model.js";
+import {User} from "../models/user.model.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
 
 // @desc    Get analytics for a single post (views, likes, comments)
 // @route   GET /analytics/posts/:postId

@@ -29,7 +29,7 @@ const userSchema = new Schema(
     role: {
       type: String,
       enum: ["user", "admin"],
-      default: "customer",
+      default: "user",
     },
     points: { type: Number, default: 0 },
     badges: [String],

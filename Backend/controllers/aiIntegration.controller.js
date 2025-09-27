@@ -1,7 +1,7 @@
-import asyncHandler from "express-async-handler";
-import Post from "../models/post.model.js";
-import Comment from "../models/comment.model.js";
-import User from "../models/user.model.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
+import {Post} from "../models/post.model.js";
+import {Comment} from "../models/comment.model.js";
+import {User} from "../models/user.model.js";
 
 // Placeholder AI functions (replace with actual AI API calls)
 const fakeSummarize = async (text) => `Summary: ${text.slice(0, 100)}...`;

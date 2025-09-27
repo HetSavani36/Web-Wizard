@@ -3,7 +3,7 @@ import {
   summarizePost,
   moderateComment,
   getRecommendations,
-  summarizePost,
+  translatePost,
 } from "../controllers/aiIntegration.controller.js";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
 
@@ -19,6 +19,6 @@ router.post("/moderate-comment", verifyJWT, moderateComment);
 router.get("/recommendations", verifyJWT, getRecommendations);
 
 // Translate a post to a selected language
-router.get("/translate/:postId", summarizePost); // could pass lang via query: ?lang=fr
+router.get("/translate/:postId", translatePost); // could pass lang via query: ?lang=fr
 
 export default router;

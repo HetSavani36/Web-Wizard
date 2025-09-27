@@ -1,12 +1,17 @@
-import mongoose, { Schema } from "mongoose";
-import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
+import mongoose from "mongoose";
 
-const bookmarkSchema = new Schema({
-  _id: ObjectId,
-  userId: { type: ObjectId, ref: "User" },
-  postId: { type: ObjectId, ref: "Post" },
-  createdAt: Date,
-});
+const { Schema, model, Types } = mongoose;
 
-export const Bookmark = mongoose.model("Bookmark", bookmarkSchema);
+const bookmarkSchema = new Schema(
+  {
+    userId: { type: Types.ObjectId, ref: "User", required: true },
+    postId: { type: Types.ObjectId, ref: "Post", required: true },
+    createdAt: { type: Date, default: Date.now },
+  },
+  { timestamps: true } // adds createdAt and updatedAt automatically
+);
+
+// Ensure a user cannot bookmark the same post twice
+bookmarkSchema.index({ userId: 1, postId: 1 }, { unique: true });
+
+export const Bookmark = model("Bookmark", bookmarkSchema);

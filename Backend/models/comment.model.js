@@ -1,17 +1,21 @@
-import mongoose, { Schema } from "mongoose";
-import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
+import mongoose from "mongoose";
 
-const commentSchema = new Schema({
-  _id: ObjectId,
-  postId: { type: ObjectId, ref: "Post" },
-  userId: { type: ObjectId, ref: "User" },
-  parentCommentId: { type: ObjectId, ref: "Comment", default: null }, // For threaded replies
-  content: String,
-  likes: { type: Number, default: 0 },
-  flagged: { type: Boolean, default: false }, // AI/Users can flag spam
-  createdAt: Date,
-  updatedAt: Date,
-});
+const { Schema, model, Types } = mongoose;
 
-export const Comment = mongoose.model("Comment", commentSchema);
+const commentSchema = new Schema(
+  {
+    postId: { type: Types.ObjectId, ref: "Post", required: true },
+    userId: { type: Types.ObjectId, ref: "User", required: true },
+    parentCommentId: { type: Types.ObjectId, ref: "Comment", default: null }, // For threaded replies
+    content: { type: String, required: true, trim: true },
+    upvotes: [{ type: Types.ObjectId, ref: "User" }],
+    downvotes: [{ type: Types.ObjectId, ref: "User" }],
+    flagged: { type: Boolean, default: false }, // AI/Users can flag spam
+  },
+  { timestamps: true } // adds createdAt and updatedAt automatically
+);
+
+// Optional: index for faster queries by postId
+commentSchema.index({ postId: 1, parentCommentId: 1 });
+
+export const Comment = model("Comment", commentSchema);

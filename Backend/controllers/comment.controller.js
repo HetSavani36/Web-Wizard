@@ -1,6 +1,6 @@
-import Comment from "../models/comment.model.js"; // Make sure you have a Comment model
-import Post from "../models/post.model.js";
-import asyncHandler from "express-async-handler";
+import {Comment} from "../models/comment.model.js"; // Make sure you have a Comment model
+import {Post} from "../models/post.model.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
 
 // @desc    Get all comments for a post
 // @route   GET /comments/:postId

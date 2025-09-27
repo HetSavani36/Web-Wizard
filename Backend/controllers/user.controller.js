@@ -1,16 +1,17 @@
-import User from "../models/user.model.js"; // Make sure you have a User model
-import asyncHandler from "express-async-handler"; // For handling async errors
-import bcrypt from "bcryptjs";
-
+import {User} from "../models/user.model.js"; // Make sure you have a User model
+import { asyncHandler } from "../utils/asyncHandler.js";import bcrypt from "bcryptjs";
+import ApiError from "../utils/ApiError.js"
+import ApiResponse from "../utils/ApiResponse.js";
 
 const getAllUsers = asyncHandler(async (req, res) => {
-  const users = await User.find({}, "-password"); // Exclude password
+  const {role="user"}=req.query
+  const users = await User.find({role:role}, "-password -refreshToken"); 
   res.status(200).json({ success: true, data: users });
 });
 
 
 const getUserDetails = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.params.id, "-password");
+  const user = await User.findById(req.params.id, "-password -refreshToken");
   if (!user) {
     res.status(404);
     throw new Error("User not found");
@@ -20,19 +21,17 @@ const getUserDetails = asyncHandler(async (req, res) => {
 
 
 const updateProfile = asyncHandler(async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, oldPassword,newPassword } = req.body;
   const userId = req.params.id;
 
   // Ensure user is updating own profile
-  if (req.user.id !== userId) {
-    res.status(403);
-    throw new Error("You can only update your own profile");
+  if (req.user._id.toString() !== userId) {
+    throw new ApiError(403,"You can only update your own profile");
   }
 
   const user = await User.findById(userId);
   if (!user) {
-    res.status(404);
-    throw new Error("User not found");
+    throw new ApiError(404, "User not found");
   }
 
   // Update fields
@@ -40,9 +39,10 @@ const updateProfile = asyncHandler(async (req, res) => {
   if (email) user.email = email;
 
   // Update password if provided
-  if (password) {
-    const salt = await bcrypt.genSalt(10);
-    user.password = await bcrypt.hash(password, salt);
+  if (oldPassword && newPassword) {
+    const isCorrect = await user.isPasswordCorrect(oldPassword);
+    if(!isCorrect) throw new ApiError(403,"password not matches")
+    user.password=newPassword
   }
 
   await user.save();
@@ -58,7 +58,7 @@ const deleteUser = asyncHandler(async (req, res) => {
     throw new Error("User not found");
   }
 
-  await user.remove();
+  await user.deleteOne();
   res.status(200).json({ success: true, message: "User deleted successfully" });
 });
 
