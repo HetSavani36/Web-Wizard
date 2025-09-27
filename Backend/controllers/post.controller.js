@@ -3,6 +3,7 @@ import {Post} from "../models/post.model.js"; // Make sure you have a Post model
 import {Category} from "../models/category.model.js"; // Make sure you have a Post model
 import { asyncHandler } from "../utils/asyncHandler.js";
 import ApiError from "../utils/ApiError.js";
+import { User } from "../models/user.model.js";
 
 const createPost = asyncHandler(async (req, res) => {
   const { title, content, category, tags } = req.body;
@@ -147,13 +148,20 @@ const upVote=asyncHandler(async(req,res)=>{
     throw new Error("Post not found");
   }
 
-  const userId = req.user.id;
+  const userId = req.user._id;
   if (!post.upVotes.includes(userId)) {
     post.upVotes.push(userId);
 
     // If the user had previously downvoted, remove that
+    const prevLength=post.downVotes.length
     post.downvotes = post.downvotes.filter((id) => id.toString() !== userId);
-
+    const length = post.downVotes.length
+    
+    const user=await User.findById(userId)
+    if(prevLength==length) user.points+=100
+    else user.points+=90
+    
+    await user.save()
     await post.save();
   }
   res.status(200).json({ success: true, likesCount: post.likes.length });
@@ -166,13 +174,20 @@ const downVote = asyncHandler(async(req, res) => {
     throw new Error("Post not found");
   }
 
-  const userId = req.user.id;
+  const userId = req.user._id;
   if (!post.downVotes.includes(userId)) {
     post.downVotes.push(userId);
 
     // If the user had previously downvoted, remove that
+    const prevLength = post.upVotes.length;
     post.upVotes = post.upVotes.filter((id) => id.toString() !== userId);
+    const length = post.upVotes.length;
 
+    const user = await User.findById(userId);
+    if (prevLength == length) user.points += 10;
+    else user.points -= 90;
+
+    await user.save()
     await post.save();
   }
   res.status(200).json({ success: true, likesCount: post.likes.length });

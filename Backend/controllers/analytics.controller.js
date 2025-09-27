@@ -2,6 +2,10 @@ import {Post} from "../models/post.model.js";
 import {User} from "../models/user.model.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 
+//total posta
+//total categories
+//active users
+//pending reports
 
 
 const getPostAnalytics = asyncHandler(async (req, res) => {

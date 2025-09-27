@@ -1,24 +1,17 @@
-import { Router } from "express";
+import { Router } from "express"
 import {
   summarizePost,
   moderateComment,
   getRecommendations,
   translatePost,
-} from "../controllers/aiIntegration.controller.js";
-import { verifyJWT } from "../middlewares/auth.middleware.js";
+} from "../controllers/aiIntegration.controller.js"
+import { verifyJWT } from "../middlewares/auth.middleware.js"
 
-const router = Router();
+const router = Router()
 
-// AI Summarization for a post
-router.get("/summarize/:postId", summarizePost);
+router.get("/summarize/:postId", summarizePost)
+router.post("/moderate-comment", verifyJWT, moderateComment)
+router.get("/recommendations", verifyJWT, getRecommendations)
+router.get("/translate/:postId", translatePost)
 
-// AI moderation for a comment
-router.post("/moderate-comment", verifyJWT, moderateComment);
-
-// Personalized recommendations
-router.get("/recommendations", verifyJWT, getRecommendations);
-
-// Translate a post to a selected language
-router.get("/translate/:postId", translatePost); // could pass lang via query: ?lang=fr
-
-export default router;
+export default router

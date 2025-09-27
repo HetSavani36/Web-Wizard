@@ -26,10 +26,6 @@ router.post("/login",loginUsingEmail)
 router.post("/admin/register",adminRegisterUsingEmail)
 
 
-//otp
-
 
 
 export default router;
-
-          
