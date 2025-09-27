@@ -6,8 +6,13 @@ import {
   deleteComment,
   upVoteComment,
   downVoteComment,
+  getFlaggedComments,
+  flagComment,
+  unflagComment,
+  deleteFlaggedComment,
 } from "../controllers/comment.controller.js"; // Make sure these are exported
 import { verifyJWT } from "../middlewares/auth.middleware.js";
+import isAdmin from "../middlewares/isAdmin.middleware.js";
 
 const router = Router();
 
@@ -24,5 +29,17 @@ router.delete("/:commentId", verifyJWT, deleteComment);
 // Upvote / Downvote a comment
 router.patch("/:commentId/upVote", verifyJWT, upVoteComment);
 router.patch("/:commentId/downVote", verifyJWT, downVoteComment);
+
+router.get("/flagged-comments",verifyJWT, isAdmin, getFlaggedComments);
+
+// Flag a comment (user or AI)
+router.patch("/flag-comment/:commentId",verifyJWT, flagComment);
+
+// Unflag a comment (Admin only)
+router.patch("/unflag-comment/:commentId", verifyJWT,isAdmin, unflagComment);
+
+// Delete a flagged comment (Admin only)
+router.delete("/flagged-comment/:commentId", verifyJWT,isAdmin, deleteFlaggedComment);
+
 
 export default router;

@@ -8,7 +8,9 @@ import {
   getTrendingPosts,
   incrementViewCount,
   upVote,
-  downVote
+  downVote,
+  createDraft,
+  postDraft
 } from "../controllers/post.controller.js"; // Make sure these are exported
 import { verifyJWT } from "../middlewares/auth.middleware.js";
 import isAdmin from "../middlewares/isAdmin.middleware.js";
@@ -36,5 +38,11 @@ router.patch("/:id/views", incrementViewCount);
 
 router.patch("/:id/upVote",verifyJWT, upVote);
 router.patch("/:id/downVote",verifyJWT ,downVote);
+
+router.route("/draft")
+.post(verifyJWT, isAdmin, createDraft)
+
+
+router.route("/:id/draft").patch(verifyJWT, isAdmin, postDraft);
 
 export default router;

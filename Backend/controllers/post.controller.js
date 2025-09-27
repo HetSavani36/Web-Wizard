@@ -178,6 +178,46 @@ const downVote = asyncHandler(async(req, res) => {
   res.status(200).json({ success: true, likesCount: post.likes.length });
 })
 
+
+const createDraft = asyncHandler(async (req, res) => {
+    const { title, content, category, tags } = req.body;
+
+    if (!title || !content || !category) {
+      res.status(400);
+      throw new Error("Title, content, and category are required");
+    }
+    const user = new mongoose.Types.ObjectId(req.user._id);
+    const existingCategory = await Category.findOne({ name: category });
+    if (!existingCategory) throw new ApiError(404, "category not found");
+
+    const post = await Post.create({
+      title: title,
+      content: content,
+      author: user._id,
+      category: existingCategory._id,
+      isDraft:true,
+      tags: tags || [],
+      aiSummary: "", //ai generated summary
+    });
+    if (!post) throw new ApiError(500, "post not drafted");
+
+    res.status(201).json({ success: true, data: post });
+});
+
+
+const postDraft=asyncHandler(async(req,res)=>{
+    const draft=await Post.findById(req.params.id)
+    if(!draft) throw new ApiError(404,"no draft found")
+
+    if(!draft.isDraft) throw new ApiError(403,"post already created")
+    draft.isDraft=false
+    draft.publishedAt=new Date()
+    await draft.save()
+
+    res.status(200).json({ success: true, data: draft });
+})
+
+
 export {
   createPost,
   getAllPosts,
@@ -187,5 +227,7 @@ export {
   getTrendingPosts,
   incrementViewCount,
   upVote,
-  downVote
+  downVote,
+  createDraft,
+  postDraft
 };

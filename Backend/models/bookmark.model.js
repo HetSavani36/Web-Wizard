@@ -6,7 +6,6 @@ const bookmarkSchema = new Schema(
   {
     userId: { type: Types.ObjectId, ref: "User", required: true },
     postId: { type: Types.ObjectId, ref: "Post", required: true },
-    createdAt: { type: Date, default: Date.now },
   },
   { timestamps: true } // adds createdAt and updatedAt automatically
 );
