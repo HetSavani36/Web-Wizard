@@ -17,13 +17,11 @@ import isAdmin from "../middlewares/isAdmin.middleware.js";
 
 const router = Router();
 
-// Create a new post (Admin) & Get all posts (Public)
 router
   .route("/")
   .post(verifyJWT, isAdmin, createPost) // Admin only
   .get(getAllPosts); // Public
 
-// Single post operations: Get, Update, Delete
 router
   .route("/:id")
   .get(getPost) // Public

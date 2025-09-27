@@ -3,21 +3,21 @@ import mongoose, { Schema, Types } from "mongoose";
 const postSchema = new Schema(
   {
     title: { type: String, required: true },
-    content: { type: String, required: true }, // Blog text
-    coverImage: { type: String }, // Optional thumbnail URL
-    author: { type: Types.ObjectId, ref: "User", required: true }, // Admin who created it
+    content: { type: String, required: true }, 
+    coverImage: { type: String }, 
+    author: { type: Types.ObjectId, ref: "User", required: true },
     category: { type: Types.ObjectId, ref: "Category", required: true },
-    tags: [String], // e.g. ["AI", "ML", "Deep Learning"]
+    tags: [String], 
     isDraft: { type: Boolean, default: false },
-    scheduledAt: { type: Date }, // For future publishing
+    scheduledAt: { type: Date }, 
     publishedAt: { type: Date },
     views: { type: Number, default: 0 },
-    upVotes: [{ type: Types.ObjectId, ref: "User" }], // Array of user IDs
-    downVotes: [{ type: Types.ObjectId, ref: "User" }], // Array of user IDs
-    bookmarks: [{ type: Types.ObjectId, ref: "User" }], // Array of user IDs
-    aiSummary: { type: String }, // Pre-generated AI TL;DR
+    upVotes: [{ type: Types.ObjectId, ref: "User" }], 
+    downVotes: [{ type: Types.ObjectId, ref: "User" }], 
+    bookmarks: [{ type: Types.ObjectId, ref: "User" }], 
+    aiSummary: { type: String },
   },
-  { timestamps: true } // Automatically adds createdAt and updatedAt
+  { timestamps: true } 
 );
 
 export const Post = mongoose.model("Post", postSchema);

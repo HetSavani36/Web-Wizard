@@ -4,6 +4,7 @@ import {Category} from "../models/category.model.js"; // Make sure you have a Po
 import { asyncHandler } from "../utils/asyncHandler.js";
 import ApiError from "../utils/ApiError.js";
 import { User } from "../models/user.model.js";
+import axios from "axios"
 
 const createPost = asyncHandler(async (req, res) => {
   const { title, content, category, tags } = req.body;
@@ -15,15 +16,24 @@ const createPost = asyncHandler(async (req, res) => {
   const user=new mongoose.Types.ObjectId(req.user._id)
   const existingCategory=await Category.findOne({name:category})
   if(!existingCategory) throw new ApiError(404,"category not found")
-   
+  
+  let aiSummary = await axios.post(
+    "https://13z548p9-3000.inc1.devtunnels.ms/summarize",
+    {
+      content: content, 
+    }
+  );
+  if (!aiSummary.data.summary) aiSummary = ""; 
+  else aiSummary = aiSummary.data.summary;
+
   const post = await Post.create({
     title: title,
     content: content,
-    author:user._id,
-    category:existingCategory._id,
+    author: user._id,
+    category: existingCategory._id,
     tags: tags || [],
-    publishedAt:new Date(),
-    aiSummary:"" //ai generated summary
+    publishedAt: new Date(),
+    aiSummary: aiSummary, //ai generated summary
   });
   if(!post) throw new ApiError(500,"post not created")
 
