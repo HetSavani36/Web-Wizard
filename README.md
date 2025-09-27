@@ -88,14 +88,13 @@ Mobile View
 Note: Replace these placeholders with actual screenshots in a /screenshots folder for final submission.
 
 🗂 Folder Structure
-Frontend
 Frontend/
 ├── app/
 │   ├── layout.jsx
 │   ├── page.jsx
 │   └── blog/
-│       ├── page.jsx          # Blog listing page
-│       └── [id].jsx          # Single blog page
+│       ├── page.jsx         # Blog listing page
+│       └── [id].jsx         # Single blog page
 ├── components/
 │   ├── common/
 │   │   ├── Header.jsx
@@ -110,6 +109,7 @@ Frontend/
 └── styles/
     ├── globals.css
     └── tailwind.css
+
 
 Backend
 Backend/
@@ -160,21 +160,25 @@ Backend/
 └── package.json
 
 📡 API Endpoints
-Authentication
-Method	Endpoint	Description	Auth
-GET	/api/auth/google	Google OAuth login	❌
-POST	/api/auth/register	Register new user	❌
-POST	/api/auth/login	Login user	❌
-GET	/api/auth/me	Get current user	✅
-POST	/api/auth/logout	Logout user	✅
-Posts
-Method	Endpoint	Description	Auth
-GET	/api/posts	Get all posts	❌
-POST	/api/posts	Create new post	✅ Admin
-GET	/api/posts/:id	Get single post	❌
-PATCH	/api/posts/:id	Update post	✅ Admin
-DELETE	/api/posts/:id	Delete post	✅ Admin
-GET	/api/posts/trending	Trending posts	❌
+🔐 Authentication
+| Method | Endpoint             | Description        | Auth |
+| ------ | -------------------- | ------------------ | ---- |
+| GET    | `/api/auth/google`   | Google OAuth login | ❌   |
+| POST   | `/api/auth/register` | Register new user  | ❌   |
+| POST   | `/api/auth/login`    | Login user         | ❌   |
+| GET    | `/api/auth/me`       | Get current user   | ✅   |
+| POST   | `/api/auth/logout`   | Logout user        | ✅   |
+
+📝 Posts
+Posts| Method | Endpoint              | Description     | Auth   |
+| ------ | --------------------- | --------------- | ------- |
+| GET    | `/api/posts`          | Get all posts   | ❌       |
+| POST   | `/api/posts`          | Create new post | ✅ Admin |
+| GET    | `/api/posts/:id`      | Get single post | ❌       |
+| PATCH  | `/api/posts/:id`      | Update post     | ✅ Admin |
+| DELETE | `/api/posts/:id`      | Delete post     | ✅ Admin |
+| GET    | `/api/posts/trending` | Trending posts  | ❌       |
+
 AI Integration
 Method	Endpoint	Description	Auth
 GET	/api/aiintegration/summarize/:postId	AI summarize blog	❌
