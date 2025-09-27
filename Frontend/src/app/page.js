@@ -139,7 +139,7 @@ export default function HomePage() {
       transition={{ duration: 0.5 }}
     >
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br p-0 from-blue-600 via-purple-600 to-pink-600 text-white">
+      <section className="relative bg-gradient-to-br  from-gray-900 via-blue-900 to-purple-900 text-white">
         <div className="absolute inset-0 bg-black/20"></div>
         <div className="relative container mx-auto px-6 py-24 text-center">
           <motion.div

@@ -255,7 +255,7 @@ export default function Header() {
               <motion.a
                 key={item.href}
                 href={item.href}
-                className="relative flex items-center gap-2 px-4 py-2 rounded-xl text-gray-600 dark:text-gray-300 hover:text-white transition-colors group overflow-hidden"
+                className="relative flex items-center gap-2 px-4 py-2 rounded-xl  hover:bg-gradient-to-r from-gray-900 via-blue-900 to-purple-900 text-gray-600 dark:text-gray-300 hover:text-white transition-colors group overflow-hidden"
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1, duration: 0.5 }}
@@ -264,7 +264,7 @@ export default function Header() {
               >
                 {/* Hover background */}
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity"
+                  className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity"
                   initial={false}
                   animate={{ scale: 1 }}
                 />
