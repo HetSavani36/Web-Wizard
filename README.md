@@ -1,283 +1,216 @@
-Blogesh - AI-Powered Blogging Platform
+📚 Blog Platform Backend (Node.js + Express + MongoDB)
 
-Blogesh is a modern, AI-driven blogging platform that combines seamless reading, powerful analytics, and cutting-edge AI features.
-Built with Next.js for the frontend and Node.js + Express + MongoDB for the backend, Blogesh provides creators and readers with a rich, engaging experience.
+This is the backend for a full-featured blog and knowledge-sharing platform.
+It provides authentication, post management, comments, categories, bookmarks, analytics, and AI-powered features.
 
-🌟 Features Overview
-Frontend (Next.js)
+🚀 Tech Stack
 
-⚡ Fast, SEO-friendly blogs using Next.js App Router
+Node.js + Express.js — Backend framework
 
-🌓 Dark & Light Mode with next-themes
+MongoDB + Mongoose — Database & ODM
 
-🎨 Modern UI/UX with smooth animations using Framer Motion
+JWT — Authentication & Authorization
 
-🔍 Advanced Search & Filters including voice search
+Passport.js — Google OAuth integration
 
-🖼️ Dynamic post rendering with HTML and Markdown support
+Multer + Cloudinary — File uploads & media storage
 
-📚 Personalized recommendations powered by AI
+Swagger — API documentation
 
-💾 Bookmark blogs and save for later
+Bcrypt.js — Password hashing
 
-💬 Real-time comments with voting and spam detection
-
-🏆 Gamification system with badges and leaderboards
-
-🌍 Multi-language support for global reach
-
-🧾 Clean reading mode for distraction-free blog reading
-
-Backend (Node.js + Express + MongoDB)
-
-🔑 Authentication System
-
-Google OAuth 2.0
-
-JWT-based authentication
-
-Role-based access (Admin, Author, Reader)
-
-✍️ Post Management
-
-Drafts, scheduled publishing
-
-Cloudinary for image uploads
-
-Category and tag management
-
-📊 Analytics Dashboard
-
-Post performance tracking
-
-Trending posts
-
-User points and engagement tracking
-
-🤖 AI Features
-
-AI-powered post summarization
-
-Comment toxicity moderation
-
-Personalized recommendations
-
-Auto translation of posts
-
-🗂️ Scalable REST APIs with Swagger documentation
-
-🖼 Screenshots
-
-Here are some UI previews of Blogesh:
-
-Feature	Screenshot
-Landing Page	
-
-Blog Listing Page	
-
-Single Blog Post	
-
-AI Summarization	
-
-Admin Dashboard	
-
-Analytics Section	
-
-Mobile View	
-
-Note: Replace these placeholders with actual screenshots in a /screenshots folder for final submission.
-
-🗂 Folder Structure
-Frontend/
-├── app/
-│   ├── layout.jsx
-│   ├── page.jsx
-│   └── blog/
-│       ├── page.jsx         # Blog listing page
-│       └── [id].jsx         # Single blog page
-├── components/
-│   ├── common/
-│   │   ├── Header.jsx
-│   │   └── Footer.jsx
-│   ├── blog/
-│   │   ├── BlogCard.jsx
-│   │   └── BlogList.jsx
-│   └── ui/
-│       ├── Button.jsx
-│       └── Loader.jsx
-├── public/
-└── styles/
-    ├── globals.css
-    └── tailwind.css
-
-
-Backend
+📂 Project Structure
 Backend/
-├── config/
-│   ├── config.js
-│   ├── db.js
-│   └── swagger.js
-├── controllers/
-│   ├── aintegration.controller.js
-│   ├── analytics.controller.js
-│   ├── auth.controller.js
-│   ├── bookmark.controller.js
-│   ├── category.controller.js
-│   ├── comment.controller.js
-│   ├── post.controller.js
-│   └── user.controller.js
-├── middlewares/
-│   ├── auth.middleware.js
-│   ├── isAdmin.middleware.js
-│   └── multer.middleware.js
-├── models/
-│   ├── analytic.model.js
-│   ├── bookmark.model.js
-│   ├── category.model.js
-│   ├── comment.model.js
-│   ├── post.model.js
-│   └── user.model.js
-├── routes/
-│   ├── aintegration.route.js
-│   ├── analytics.route.js
-│   ├── auth.route.js
-│   ├── bookmark.route.js
-│   ├── category.route.js
-│   ├── comment.route.js
-│   ├── post.route.js
-│   └── user.route.js
-├── utils/
-│   ├── ApiError.js
-│   ├── ApiResponse.js
-│   ├── asyncHandler.js
-│   ├── cloudinary.js
-│   └── passport.js
-├── public/
-│   └── temp/
-├── .env
-├── app.js
-├── index.js
-└── package.json
+├── config/              # App, DB, Swagger configs
+├── controllers/         # Route controllers (business logic)
+├── middlewares/         # JWT auth, role-based access, multer
+├── models/              # Mongoose models (User, Post, Comment, etc.)
+├── public/temp/         # Temporary uploads
+├── routes/              # API route definitions
+├── utils/               # Utility functions (ApiError, ApiResponse, asyncHandler)
+├── app.js               # Express app
+├── index.js             # Entry point
+└── .env                 # Environment variables
 
-📡 API Endpoints
-🔐 Authentication
-| Method | Endpoint             | Description        | Auth |
-| ------ | -------------------- | ------------------ | ---- |
-| GET    | `/api/auth/google`   | Google OAuth login | ❌   |
-| POST   | `/api/auth/register` | Register new user  | ❌   |
-| POST   | `/api/auth/login`    | Login user         | ❌   |
-| GET    | `/api/auth/me`       | Get current user   | ✅   |
-| POST   | `/api/auth/logout`   | Logout user        | ✅   |
+🔑 Features
+✅ Authentication & User Management
+
+JWT Authentication
+
+Google OAuth (/auth/google)
+
+Register/Login for both users and admins
+
+Refresh tokens, Logout, and Get current user (/auth/me)
+
+Admin-only user management (GET /users, DELETE /users/:id)
+
+User profile update (PATCH /users/:id)
 
 📝 Posts
-Posts| Method | Endpoint              | Description     | Auth   |
-| ------ | --------------------- | --------------- | ------- |
-| GET    | `/api/posts`          | Get all posts   | ❌       |
-| POST   | `/api/posts`          | Create new post | ✅ Admin |
-| GET    | `/api/posts/:id`      | Get single post | ❌       |
-| PATCH  | `/api/posts/:id`      | Update post     | ✅ Admin |
-| DELETE | `/api/posts/:id`      | Delete post     | ✅ Admin |
-| GET    | `/api/posts/trending` | Trending posts  | ❌       |
 
-AI Integration
-Method	Endpoint	Description	Auth
-GET	/api/aiintegration/summarize/:postId	AI summarize blog	❌
-POST	/api/aiintegration/moderate-comment	AI comment moderation	✅
-GET	/api/aiintegration/recommendations	Personalized feed	✅
-GET	/api/aiintegration/translate/:postId	Translate post	❌
-⚙️ Tech Stack
-Frontend
+Create, update, delete posts (admin only)
 
-Next.js 14
+Fetch all posts, single post, or trending posts
 
-Tailwind CSS
+Drafts support (/posts/draft)
 
-Framer Motion
+Increment post view count
 
-Next Themes
+Tags, categories, scheduling, AI summaries
 
-Backend
+💬 Comments
 
-Node.js
+Add, edit, delete comments on posts
 
-Express.js
+Upvote / downvote comments
 
-MongoDB
- + Mongoose
+Flag/unflag comments (user + admin moderation)
 
-Cloudinary
+Admin can view and delete flagged comments
 
-Passport.js
+📂 Categories
 
-Swagger
+Admin can create, update, and delete categories
 
-🚀 Getting Started
-1. Clone the Repository
-git clone https://github.com/yourusername/blogesh.git
-cd blogesh
+Public can fetch categories and details
 
-2. Backend Setup
-cd Backend
-npm install
+🔖 Bookmarks & Engagement
 
+Users can bookmark/unbookmark posts
 
-Create a .env file:
+Users can like/unlike posts
 
-PORT=5000
-MONGODB_URI=mongodb://localhost:27017/blogesh
-JWT_SECRET=your_jwt_secret
-GOOGLE_CLIENT_ID=your_google_client_id
-GOOGLE_CLIENT_SECRET=your_google_client_secret
-CLOUDINARY_URL=your_cloudinary_url
+Fetch all bookmarks for a user
 
+📊 Analytics & Gamification
 
-Run the backend:
+Per-post analytics: views, likes, comments
 
-npm run dev
+System-wide trending analytics
 
-3. Frontend Setup
-cd ../Frontend
-npm install
-npm run dev
+Leaderboard (user points)
 
+Admin can update user points
 
-Frontend URL: http://localhost:3000
-Backend URL: http://localhost:5000
+🤖 AI Integration
 
-📝 Future Roadmap
+AI summarization of posts (/aiintegration/summarize/:postId)
 
- Mobile app with React Native
+AI comment moderation (/aiintegration/moderate-comment)
 
- Real-time notifications using WebSockets
+Personalized recommendations (/aiintegration/recommendations)
 
- Subscription-based premium blogs
+AI translation (/aiintegration/translate/:postId?lang=fr)
 
- AI-powered blog writing tool
+📡 API Endpoints
 
- Built-in content editor with AI assistance
+Here’s a quick reference of major endpoints:
 
-🤝 Contribution Guidelines
+🔐 Auth (/api/auth)
 
-Fork the repository
+POST /register — Register user
 
-Create a new branch:
+POST /admin/register — Register admin
 
-git checkout -b feature/amazing-feature
+POST /login — Login
 
+POST /logout — Logout
 
-Commit your changes:
+POST /refresh-token — Refresh JWT
 
-git commit -m "Add amazing feature"
+GET /me — Current user
 
+GET /google — Google OAuth
 
-Push your branch:
+👤 Users (/api/users)
 
-git push origin feature/amazing-feature
+GET / — Get all users (Admin)
 
+GET /:id — Get user details (Admin)
 
-Open a Pull Request 🚀
+PATCH /:id — Update profile (Self)
 
-📜 License
+DELETE /:id — Delete user (Admin)
 
-Blogesh is licensed under the MIT License.
-Feel free to use and modify for personal or commercial use.
+📝 Posts (/api/posts)
+
+POST / — Create post (Admin)
+
+GET / — Get all posts
+
+GET /:id — Get post details
+
+PATCH /:id — Update post (Admin)
+
+DELETE /:id — Delete post (Admin)
+
+GET /trending — Trending posts
+
+PATCH /:id/views — Increment view count
+
+💬 Comments (/api/comments)
+
+GET /:postId — Get all comments for a post
+
+POST /:postId — Add comment
+
+PATCH /:commentId — Edit comment
+
+DELETE /:commentId — Delete comment
+
+PATCH /:commentId/upVote — Upvote
+
+PATCH /:commentId/downVote — Downvote
+
+GET /flagged-comments — Get flagged comments (Admin)
+
+PATCH /flag-comment/:commentId — Flag comment
+
+PATCH /unflag-comment/:commentId — Unflag comment (Admin)
+
+DELETE /flagged-comment/:commentId — Delete flagged comment (Admin)
+
+📂 Categories (/api/categories)
+
+POST / — Create category (Admin)
+
+GET / — Get all categories
+
+GET /:id — Get category details
+
+PATCH /:id — Update category (Admin)
+
+DELETE /:id — Delete category (Admin)
+
+🔖 Bookmarks (/api/bookmarks)
+
+POST /:postId — Bookmark post
+
+DELETE /:postId — Remove bookmark
+
+GET /user/:userId — User’s bookmarks
+
+PATCH /:postId/like — Like post
+
+PATCH /:postId/unlike — Unlike post
+
+📊 Analytics (/api/analytics)
+
+GET /posts/:postId — Post analytics
+
+GET /trending — Trending analytics
+
+GET /leaderboard — Leaderboard
+
+PATCH /users/:userId/points — Update points (Admin)
+
+🤖 AI Integration (/api/aiintegration)
+
+GET /summarize/:postId — AI summarization
+
+POST /moderate-comment — Moderate comment
+
+GET /recommendations — Recommendations
+
+GET /translate/:postId — Translate post
