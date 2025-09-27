@@ -14,7 +14,7 @@ const userSchema = new Schema(
       type: String,
       required: true,
       unique: true,
-      lowercase: true,  
+      lowercase: true,
       trim: true,
     },
     googleId: {
@@ -22,22 +22,20 @@ const userSchema = new Schema(
       unique: true,
       sparse: true,
     },
-    password:{
-      type:String,
-      select:false
-    },
-    role:{
-      type:String,
-      enum:["admin","customer"],
-      default: "customer"
-    },
-    avatar: {
+    password: {
       type: String,
-      default: "",
+      select: false,
     },
+    role: {
+      type: String,
+      enum: ["user", "admin"],
+      default: "customer",
+    },
+    points: { type: Number, default: 0 },
+    badges: [String],
     refreshToken: {
       type: String,
-      default: "", 
+      default: "",
     },
   },
   { timestamps: true }
