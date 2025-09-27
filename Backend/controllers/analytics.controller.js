@@ -1,10 +1,13 @@
-import Post from "../models/post.model.js";
-import User from "../models/user.model.js";
-import asyncHandler from "express-async-handler";
+import {Post} from "../models/post.model.js";
+import {User} from "../models/user.model.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
 
-// @desc    Get analytics for a single post (views, likes, comments)
-// @route   GET /analytics/posts/:postId
-// @access  Authenticated
+//total posta
+//total categories
+//active users
+//pending reports
+
+
 const getPostAnalytics = asyncHandler(async (req, res) => {
   const post = await Post.findById(req.params.postId)
     .populate("author", "name")
@@ -24,9 +27,8 @@ const getPostAnalytics = asyncHandler(async (req, res) => {
   res.status(200).json({ success: true, data: analytics });
 });
 
-// @desc    Get system-wide trending posts (based on views, likes, comments)
-// @route   GET /analytics/trending
-// @access  Authenticated
+
+
 const getTrendingAnalytics = asyncHandler(async (req, res) => {
   // Simple scoring formula: views + likes*2 + comments*3
   const posts = await Post.find().populate("comments");
@@ -43,9 +45,8 @@ const getTrendingAnalytics = asyncHandler(async (req, res) => {
   res.status(200).json({ success: true, data: trending });
 });
 
-// @desc    Get leaderboard for gamification (users with most points)
-// @route   GET /analytics/leaderboard
-// @access  Authenticated
+
+
 const getLeaderboard = asyncHandler(async (req, res) => {
   const users = await User.find()
     .sort({ points: -1 })
@@ -54,9 +55,8 @@ const getLeaderboard = asyncHandler(async (req, res) => {
   res.status(200).json({ success: true, data: users });
 });
 
-// @desc    Update user points (Admin only)
-// @route   PATCH /analytics/users/:userId/points
-// @access  Admin
+
+
 const updateUserPoints = asyncHandler(async (req, res) => {
   const { points } = req.body;
 

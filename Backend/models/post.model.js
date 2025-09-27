@@ -1,24 +1,23 @@
-import mongoose, { Schema } from "mongoose";
-import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
+import mongoose, { Schema, Types } from "mongoose";
 
-const postSchema = new Schema({
-  _id: ObjectId,
-  title: String,
-  content: String, // Blog text
-  coverImage: String, // Optional thumbnail URL
-  author: { type: ObjectId, ref: "User" }, // Admin who created it
-  category: { type: ObjectId, ref: "Category" },
-  tags: [String], // e.g. ["AI", "ML", "Deep Learning"]
-  isDraft: { type: Boolean, default: false },
-  scheduledAt: Date, // For future publishing
-  publishedAt: Date,
-  views: { type: Number, default: 0 },
-  likes: { type: Number, default: 0 },
-  bookmarks: { type: Number, default: 0 }, // Count only
-  aiSummary: String, // Pre-generated AI TL;DR
-  createdAt: Date,
-  updatedAt: Date,
-});
+const postSchema = new Schema(
+  {
+    title: { type: String, required: true },
+    content: { type: String, required: true }, 
+    coverImage: { type: String }, 
+    author: { type: Types.ObjectId, ref: "User", required: true },
+    category: { type: Types.ObjectId, ref: "Category", required: true },
+    tags: [String], 
+    isDraft: { type: Boolean, default: false },
+    scheduledAt: { type: Date }, 
+    publishedAt: { type: Date },
+    views: { type: Number, default: 0 },
+    upVotes: [{ type: Types.ObjectId, ref: "User" }], 
+    downVotes: [{ type: Types.ObjectId, ref: "User" }], 
+    bookmarks: [{ type: Types.ObjectId, ref: "User" }], 
+    aiSummary: { type: String },
+  },
+  { timestamps: true } 
+);
 
 export const Post = mongoose.model("Post", postSchema);

@@ -1,13 +1,14 @@
-import mongoose, { Schema } from "mongoose";
-import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
+import mongoose from "mongoose";
 
-const categorySchema = new Schema({
-  _id: ObjectId,
-  name: { type: String, unique: true }, // "AI", "Web Development", "Databases"
-  description: String,
-  createdAt: Date,
-  updatedAt: Date,
-});
+const { Schema, model, Types } = mongoose;
 
-export const Category = mongoose.model("Category", categorySchema);
+const categorySchema = new Schema(
+  {
+    name: { type: String, required: true, unique: true, trim: true }, // e.g., "AI", "Web Development"
+    description: { type: String, default: "" },
+  },
+  { timestamps: true } // automatically adds createdAt and updatedAt
+);
+
+
+export const Category = model("Category", categorySchema);

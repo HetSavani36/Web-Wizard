@@ -11,13 +11,11 @@ import isAdmin from "../middlewares/isAdmin.middleware.js";
 
 const router = Router();
 
-// Route for creating a category (admin) & getting all categories (public)
 router
   .route("/")
   .post(verifyJWT, isAdmin, createCategory) // Admin only
   .get(getAllCategories); // Public
 
-// Route for a single category: get details, update, delete
 router
   .route("/:id")
   .get(getCategoryDetails) // Public

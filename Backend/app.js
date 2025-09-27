@@ -26,7 +26,23 @@ app.use(cookieParser())
 
 
 import authRouter from "./routes/auth.route.js";
+import analyticsRouter from "./routes/analytics.route.js";
+import bookmarkRouter from "./routes/bookmark.route.js";
+import categoryRouter from "./routes/category.route.js";
+import commentRouter from "./routes/comment.route.js";
+import postRouter from "./routes/post.route.js";
+import userRouter from "./routes/user.route.js";
+import aiIntegrationRouter from "./routes/aiIntegration.route.js";
+
+
 app.use("/auth",authRouter)
+app.use("/analytics", analyticsRouter);
+app.use("/bookmarks", bookmarkRouter);
+app.use("/categories", categoryRouter);
+app.use("/comments", commentRouter);
+app.use("/posts", postRouter);
+app.use("/users", userRouter);
+app.use("/aiIntegrations", aiIntegrationRouter);
 
 
 app.use("/",(req,res)=>{
