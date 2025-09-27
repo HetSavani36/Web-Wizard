@@ -28,6 +28,8 @@ import {   ArrowRight,
 export default function HomePage() {
   const [posts, setPosts] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState([]);
+  const [searchTerm, setSearchTerm] = useState([]);
+
   const [sortBy, setSortBy] = useState("latest");
   const [loading, setLoading] = useState(true);
 
@@ -109,7 +111,7 @@ export default function HomePage() {
 
   if (loading) {
     return (
-      <div className="space-y-6">
+      <div className="space-y-6  ">
         <div className="animate-pulse">
           <div className="h-12 bg-gray-200 dark:bg-gray-700 rounded-lg mb-6"></div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -131,13 +133,13 @@ export default function HomePage() {
 
   return (
     <motion.div
-      className="space-y-8"
+      className="space-y-8 "
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 text-white">
+      <section className="relative bg-gradient-to-br p-0 from-blue-600 via-purple-600 to-pink-600 text-white">
         <div className="absolute inset-0 bg-black/20"></div>
         <div className="relative container mx-auto px-6 py-24 text-center">
           <motion.div
@@ -166,7 +168,7 @@ export default function HomePage() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.3, duration: 0.6 }}
           >
-            {/* <div className="relative">
+            <div className="relative">
               <input
                 type="text"
                 placeholder="Search for amazing stories..."
@@ -177,7 +179,7 @@ export default function HomePage() {
               <div className="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl">
                 <Search className="w-5 h-5 text-white" />
               </div>
-            </div> */}
+            </div>
           </motion.div>
 
           {/* Category Pills */}

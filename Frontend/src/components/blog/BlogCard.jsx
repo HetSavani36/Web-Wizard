@@ -56,12 +56,12 @@ export default function BlogCard({ post }) {
 >
   <Link href={`/blog/${post.id}`}>
     <div className="relative h-52 overflow-hidden">
-      {/* <Image
+      <Image
         src={post.coverImage}
         alt={post.title}
         fill
         className="object-cover group-hover:scale-110 transition-transform duration-700"
-      /> */}
+      />``
       <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
       <div className="absolute top-4 left-4">
         <span

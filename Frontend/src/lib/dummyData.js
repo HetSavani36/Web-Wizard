@@ -1,3 +1,12 @@
+import Image from "next/image";
+import id1 from "@/assets/id1.jpg";
+import id2 from '@/assets/id2.jpeg';
+import id3 from '@/assets/id3.jpg';
+import id4 from '@/assets/id4.jpeg';
+import id5 from '@/assets/id5.png';
+import id6 from '@/assets/id6.jpeg';
+import id7 from '@/assets/id7.png';
+
 export const dummyUsers = {
   currentUser: {
     id: 1,
@@ -36,7 +45,7 @@ export const dummyPosts = [
     <p>As we look to the future, AI will continue to reshape web development. Developers who embrace these tools will find themselves more productive and capable of creating more sophisticated applications.</p>
     `,
     summary: "AI is transforming web development through automated code generation, intelligent testing, performance optimization, and personalized user experiences.",
-    coverImage: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=400&fit=crop",
+    coverImage: id1,
     author: {
       name: "Sarah Chen",
       avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b665?w=100&h=100&fit=crop&crop=face",
@@ -99,7 +108,7 @@ export const dummyPosts = [
     <p>Following these practices will ensure your React application remains maintainable and scalable as it grows.</p>
     `,
     summary: "Learn essential strategies for building scalable React applications including component architecture, state management, and performance optimization.",
-    coverImage: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&h=400&fit=crop",
+    coverImage: id2,
     author: {
       name: "David Kim",
       avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
@@ -140,7 +149,7 @@ export const dummyPosts = [
     </ul>
     `,
     summary: "Compare CSS Grid and Flexbox to understand when to use each layout system for optimal web design results.",
-    coverImage: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=400&fit=crop",
+    coverImage: id3,
     author: {
       name: "Lisa Park",
       avatar: "https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?w=100&h=100&fit=crop&crop=face",
@@ -154,7 +163,72 @@ export const dummyPosts = [
     readTime: "6 min read",
     publishedAt: "2024-09-23T09:20:00Z",
     comments: []
+  },
+    {
+    id: 4,
+    title: "Next.js 14: New Features You Must Know",
+    content: `<h2>What's New in Next.js 14?</h2><p>Next.js 14 introduces a host of new features including enhanced routing, server components, and performance improvements...</p>`,
+    summary: "Explore the latest updates in Next.js 14 and how they can help you build faster, more scalable React applications.",
+    coverImage: id4,
+    author: { name: "Mark Johnson", avatar: "https://images.unsplash.com/photo-1520813792240-56fc4a3765a7?w=100&h=100&fit=crop&crop=face", id: 5 },
+    category: "Web Development",
+    tags: ["Next.js", "React", "JavaScript"],
+    upvotes: 110,
+    downvotes: 5,
+    views: 920,
+    readTime: "7 min read",
+    publishedAt: "2024-09-22T13:15:00Z",
+    comments: []
+  },
+  {
+    id: 5,
+    title: "Design Systems: Creating Consistent UI",
+    content: `<h2>Introduction to Design Systems</h2><p>A design system is a collection of reusable components, guided by clear standards, that can be assembled to build any number of applications...</p>`,
+    summary: "Learn how to create scalable design systems for consistent and efficient UI development.",
+    coverImage: id5,
+    author: { name: "Emily White", avatar: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=100&h=100&fit=crop&crop=face", id: 6 },
+    category: "UI/UX",
+    tags: ["Design Systems", "UI", "UX"],
+    upvotes: 95,
+    downvotes: 1,
+    views: 740,
+    readTime: "6 min read",
+    publishedAt: "2024-09-21T11:00:00Z",
+    comments: []
+  },
+  {
+    id: 6,
+    title: "Effective JavaScript Debugging Techniques",
+    content: `<h2>Debugging Like a Pro</h2><p>Debugging is a crucial skill for any JavaScript developer. In this guide, we'll explore practical techniques to identify and fix issues efficiently...</p>`,
+    summary: "Master advanced JavaScript debugging methods to improve code quality and productivity.",
+    coverImage:id6,
+    author: { name: "John Doe", avatar: "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=100&h=100&fit=crop&crop=face", id: 7 },
+    category: "JavaScript",
+    tags: ["JavaScript", "Debugging", "Tips"],
+    upvotes: 120,
+    downvotes: 2,
+    views: 1080,
+    readTime: "7 min read",
+    publishedAt: "2024-09-20T09:30:00Z",
+    comments: []
+  },
+  {
+    id: 7,
+    title: "Understanding Progressive Web Apps (PWA)",
+    content: `<h2>Introduction</h2><p>Progressive Web Apps provide native-like experiences on the web. This article covers how to build PWAs, caching strategies, and offline support...</p>`,
+    summary: "Learn how PWAs enhance user experience and reliability for modern web applications.",
+    coverImage: id7,
+    author: { name: "Olivia Brown", avatar: "https://images.unsplash.com/photo-1544725176-7c40e5a2c9f0?w=100&h=100&fit=crop&crop=face", id: 8 },
+    category: "Web Apps",
+    tags: ["PWA", "Web Development", "Offline"],
+    upvotes: 88,
+    downvotes: 3,
+    views: 810,
+    readTime: "6 min read",
+    publishedAt: "2024-09-19T14:45:00Z",
+    comments: []
   }
+
 ];
 
 export const dummyCategories = [

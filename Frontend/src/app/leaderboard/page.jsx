@@ -145,20 +145,20 @@ export default function LeaderboardPage() {
                 
                 <div className="text-center pt-6">
                   <div className="relative mb-4">
-                    <Image
+                    {/* <Image
                       src={leader.avatar}
                       alt={leader.username}
                       width={80}
                       height={80}
                       className="rounded-full mx-auto border-4 border-white/30"
-                    />
-                    {actualRank === 1 && (
+                    /> */}
+                    {/* {actualRank === 1 && (
                       <motion.div
                         className="absolute -inset-2 rounded-full border-4 border-yellow-300"
                         animate={{ rotate: 360 }}
-                        transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                        transition={{ duration: 8, repeat: 1, ease: "circular" }}
                       />
-                    )}
+                    )} */}
                   </div>
                   
                   <h3 className="text-xl font-bold mb-2">{leader.username}</h3>
@@ -215,13 +215,13 @@ export default function LeaderboardPage() {
                 
                 {/* Avatar */}
                 <div className="relative">
-                  <Image
+                  {/* <Image
                     src={leader.avatar}
                     alt={leader.username}
                     width={50}
                     height={50}
                     className="rounded-full"
-                  />
+                  /> */}
                   {leader.rank === 1 && (
                     <div className="absolute -top-1 -right-1 w-4 h-4 bg-yellow-400 rounded-full flex items-center justify-center">
                       <Crown className="w-2 h-2 text-white" />

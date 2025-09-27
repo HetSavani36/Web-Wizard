@@ -1,26 +1,27 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Menu, 
-  X, 
-  Sun, 
-  Moon, 
-  Home, 
-  BookOpen, 
-  Grid3X3, 
-  Bookmark, 
-  User, 
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Menu,
+  X,
+  Sun,
+  Moon,
+  Home,
+  BookOpen,
+  Grid3X3,
+  Bookmark,
+  User,
   Trophy,
   Bell,
   Sparkles,
-  Zap
-} from 'lucide-react';
+  Zap,
+} from "lucide-react";
+import Link from "next/link";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [theme, setTheme] = useState('light');
+  const [theme, setTheme] = useState("light");
   const [logoHovered, setLogoHovered] = useState(false);
   const [sparkles, setSparkles] = useState([]);
 
@@ -31,76 +32,76 @@ export default function Header() {
         id: i,
         x: Math.random() * 40 - 20,
         y: Math.random() * 40 - 20,
-        delay: Math.random() * 0.5
+        delay: Math.random() * 0.5,
       }));
       setSparkles(newSparkles);
     }
   }, [logoHovered]);
 
   const navItems = [
-    { href: '/', label: 'Home', icon: Home },
-    { href: '/blog', label: 'Blog', icon: BookOpen },
-    { href: '/categories', label: 'Categories', icon: Grid3X3 },
-    { href: '/bookmarks', label: 'Bookmarks', icon: Bookmark },
-    { href: '/profile', label: 'Profile', icon: User },
-    { href: '/leaderboard', label: 'Leaderboard', icon: Trophy },
+    { href: "/", label: "Home", icon: Home },
+    { href: "/blog", label: "Blog", icon: BookOpen },
+    { href: "/categories", label: "Categories", icon: Grid3X3 },
+    { href: "/bookmarks", label: "Bookmarks", icon: Bookmark },
+    { href: "/profile", label: "Profile", icon: User },
+    { href: "/leaderboard", label: "Leaderboard", icon: Trophy },
   ];
 
   const logoVariants = {
     idle: {
       scale: 1,
       rotateY: 0,
-      background: 'linear-gradient(135deg, #3B82F6, #8B5CF6)',
+      background: "linear-gradient(135deg, #3B82F6, #8B5CF6)",
     },
     hover: {
       scale: 1.1,
       rotateY: [0, 360],
       background: [
-        'linear-gradient(135deg, #3B82F6, #8B5CF6)',
-        'linear-gradient(135deg, #EF4444, #F59E0B)',
-        'linear-gradient(135deg, #10B981, #3B82F6)',
-        'linear-gradient(135deg, #8B5CF6, #EC4899)',
-        'linear-gradient(135deg, #3B82F6, #8B5CF6)',
+        "linear-gradient(135deg, #3B82F6, #8B5CF6)",
+        "linear-gradient(135deg, #EF4444, #F59E0B)",
+        "linear-gradient(135deg, #10B981, #3B82F6)",
+        "linear-gradient(135deg, #8B5CF6, #EC4899)",
+        "linear-gradient(135deg, #3B82F6, #8B5CF6)",
       ],
       transition: {
         duration: 2,
-        ease: 'easeInOut',
+        ease: "easeInOut",
         background: {
           duration: 2,
           repeat: Infinity,
-          repeatType: 'reverse'
-        }
-      }
-    }
+          repeatType: "reverse",
+        },
+      },
+    },
   };
 
   const textVariants = {
     idle: {
-      backgroundImage: 'linear-gradient(135deg, #3B82F6, #8B5CF6)',
-      backgroundSize: '100%',
+      backgroundImage: "linear-gradient(135deg, #3B82F6, #8B5CF6)",
+      backgroundSize: "100%",
     },
     hover: {
       backgroundImage: [
-        'linear-gradient(135deg, #3B82F6, #8B5CF6)',
-        'linear-gradient(135deg, #EF4444, #F59E0B)',
-        'linear-gradient(135deg, #10B981, #3B82F6)',
-        'linear-gradient(135deg, #8B5CF6, #EC4899)',
-        'linear-gradient(135deg, #3B82F6, #8B5CF6)',
+        "linear-gradient(135deg, #3B82F6, #8B5CF6)",
+        "linear-gradient(135deg, #EF4444, #F59E0B)",
+        "linear-gradient(135deg, #10B981, #3B82F6)",
+        "linear-gradient(135deg, #8B5CF6, #EC4899)",
+        "linear-gradient(135deg, #3B82F6, #8B5CF6)",
       ],
-      backgroundSize: ['100%', '200%', '100%'],
+      backgroundSize: ["100%", "200%", "100%"],
       transition: {
         duration: 2,
         repeat: Infinity,
-        repeatType: 'reverse'
-      }
-    }
+        repeatType: "reverse",
+      },
+    },
   };
 
   const sparkleVariants = {
-    hidden: { 
-      opacity: 0, 
-      scale: 0, 
-      rotate: 0 
+    hidden: {
+      opacity: 0,
+      scale: 0,
+      rotate: 0,
     },
     visible: (custom) => ({
       opacity: [0, 1, 0],
@@ -111,13 +112,13 @@ export default function Header() {
       transition: {
         duration: 1.5,
         delay: custom.delay,
-        ease: "easeOut"
-      }
-    })
+        ease: "easeOut",
+      },
+    }),
   };
 
   return (
-    <motion.header 
+    <motion.header
       className="sticky top-0 z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl border-b border-gray-200 dark:border-gray-700 shadow-lg"
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
@@ -125,7 +126,7 @@ export default function Header() {
     >
       {/* Animated background gradient */}
       <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-pink-500/5 animate-gradient-x"></div>
-      
+
       <div className="container mx-auto px-4 relative">
         <div className="flex items-center justify-between h-16">
           {/* Enhanced Logo */}
@@ -136,27 +137,31 @@ export default function Header() {
             whileTap={{ scale: 0.95 }}
           >
             <div className="relative">
-              <motion.div 
+              <motion.div
                 className="w-10 h-10 rounded-xl flex items-center justify-center relative overflow-hidden shadow-lg"
                 variants={logoVariants}
                 initial="idle"
                 animate={logoHovered ? "hover" : "idle"}
                 style={{
-                  background: 'linear-gradient(135deg, #3B82F6, #8B5CF6)',
+                  background: "linear-gradient(135deg, #3B82F6, #8B5CF6)",
                 }}
               >
                 {/* Animated rays */}
                 <motion.div
                   className="absolute inset-0"
-                  animate={logoHovered ? {
-                    background: [
-                      'conic-gradient(from 0deg, transparent, rgba(255,255,255,0.3), transparent)',
-                      'conic-gradient(from 360deg, transparent, rgba(255,255,255,0.3), transparent)'
-                    ]
-                  } : {}}
+                  animate={
+                    logoHovered
+                      ? {
+                          background: [
+                            "conic-gradient(from 0deg, transparent, rgba(255,255,255,0.3), transparent)",
+                            "conic-gradient(from 360deg, transparent, rgba(255,255,255,0.3), transparent)",
+                          ],
+                        }
+                      : {}
+                  }
                   transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                 />
-                
+
                 <motion.div
                   animate={logoHovered ? { rotate: 360 } : { rotate: 0 }}
                   transition={{ duration: 2, ease: "easeInOut" }}
@@ -167,10 +172,14 @@ export default function Header() {
                 {/* Pulsing ring */}
                 <motion.div
                   className="absolute inset-0 border-2 border-white/30 rounded-xl"
-                  animate={logoHovered ? {
-                    scale: [1, 1.2, 1],
-                    opacity: [0.3, 0, 0.3]
-                  } : {}}
+                  animate={
+                    logoHovered
+                      ? {
+                          scale: [1, 1.2, 1],
+                          opacity: [0.3, 0, 0.3],
+                        }
+                      : {}
+                  }
                   transition={{ duration: 1.5, repeat: Infinity }}
                 />
               </motion.div>
@@ -197,21 +206,21 @@ export default function Header() {
                 ))}
               </AnimatePresence> */}
             </div>
-
-            <motion.span 
+            <Link
+              href="/"
+              // <motion.span
               className="text-2xl font-bold bg-clip-text text-transparent"
               variants={textVariants}
               initial="idle"
               animate={logoHovered ? "hover" : "idle"}
               style={{
-                backgroundImage: 'linear-gradient(135deg, #3B82F6, #8B5CF6)',
-                WebkitBackgroundClip: 'text',
-                backgroundClip: 'text',
+                backgroundImage: "linear-gradient(135deg, #3B82F6, #8B5CF6)",
+                WebkitBackgroundClip: "text",
+                backgroundClip: "text",
               }}
             >
               Blogesh
-            </motion.span>
-
+            </Link>
             {/* Floating elements */}
             {/* <AnimatePresence>
               {logoHovered && (
@@ -259,7 +268,7 @@ export default function Header() {
                   initial={false}
                   animate={{ scale: 1 }}
                 />
-                
+
                 <motion.div
                   whileHover={{ rotate: [0, -10, 10, 0] }}
                   transition={{ duration: 0.5 }}
@@ -268,12 +277,12 @@ export default function Header() {
                   <item.icon className="w-4 h-4" />
                 </motion.div>
                 <span className="relative z-10 font-medium">{item.label}</span>
-                
+
                 {/* Shine effect */}
                 <motion.div
                   className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 group-hover:animate-shine"
-                  initial={{ x: '-100%' }}
-                  whileHover={{ x: '200%' }}
+                  initial={{ x: "-100%" }}
+                  whileHover={{ x: "200%" }}
                   transition={{ duration: 0.6 }}
                 />
               </motion.a>
@@ -289,29 +298,29 @@ export default function Header() {
               whileTap={{ scale: 0.9 }}
               animate={{
                 boxShadow: [
-                  '0 0 0 0 rgba(59, 130, 246, 0)',
-                  '0 0 0 4px rgba(59, 130, 246, 0.1)',
-                  '0 0 0 0 rgba(59, 130, 246, 0)'
-                ]
+                  "0 0 0 0 rgba(59, 130, 246, 0)",
+                  "0 0 0 4px rgba(59, 130, 246, 0.1)",
+                  "0 0 0 0 rgba(59, 130, 246, 0)",
+                ],
               }}
               transition={{ duration: 2, repeat: Infinity }}
             >
               <Bell className="w-5 h-5" />
-              <motion.span 
+              <motion.span
                 className="absolute -top-1 -right-1 w-3 h-3 bg-gradient-to-r from-red-500 to-pink-500 rounded-full"
                 animate={{
                   scale: [1, 1.2, 1],
-                  rotate: [0, 180, 360]
+                  rotate: [0, 180, 360],
                 }}
                 transition={{ duration: 2, repeat: Infinity }}
               />
-              
+
               {/* Ripple effect */}
               <motion.span
                 className="absolute -top-1 -right-1 w-3 h-3 bg-red-400 rounded-full opacity-75"
                 animate={{
                   scale: [1, 2, 1],
-                  opacity: [0.7, 0, 0.7]
+                  opacity: [0.7, 0, 0.7],
                 }}
                 transition={{ duration: 2, repeat: Infinity }}
               />
@@ -319,28 +328,28 @@ export default function Header() {
 
             {/* Enhanced Theme Toggle */}
             <motion.button
-              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
               className="relative p-2 rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gradient-to-r hover:from-yellow-400 hover:to-orange-500 hover:text-white transition-all duration-300 overflow-hidden group"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9, rotate: 360 }}
             >
               <motion.div
-                animate={{ rotate: theme === 'dark' ? 360 : 0 }}
+                animate={{ rotate: theme === "dark" ? 360 : 0 }}
                 transition={{ duration: 0.5, ease: "easeInOut" }}
               >
-                {theme === 'dark' ? (
+                {theme === "dark" ? (
                   <Sun className="w-5 h-5" />
                 ) : (
                   <Moon className="w-5 h-5" />
                 )}
               </motion.div>
-              
+
               {/* Glow effect */}
               <motion.div
                 className="absolute inset-0 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-xl opacity-0 group-hover:opacity-20"
                 animate={{
                   scale: [1, 1.5, 1],
-                  opacity: [0, 0.2, 0]
+                  opacity: [0, 0.2, 0],
                 }}
                 transition={{ duration: 2, repeat: Infinity }}
               />
@@ -357,7 +366,11 @@ export default function Header() {
                 animate={{ rotate: isMenuOpen ? 180 : 0 }}
                 transition={{ duration: 0.3 }}
               >
-                {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                {isMenuOpen ? (
+                  <X className="w-5 h-5" />
+                ) : (
+                  <Menu className="w-5 h-5" />
+                )}
               </motion.div>
             </motion.button>
           </div>
@@ -366,10 +379,10 @@ export default function Header() {
         {/* Enhanced Mobile Navigation */}
         <AnimatePresence>
           {isMenuOpen && (
-            <motion.nav 
+            <motion.nav
               className="md:hidden py-4 border-t border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-gray-900/50 backdrop-blur-lg rounded-b-2xl"
               initial={{ opacity: 0, height: 0, y: -20 }}
-              animate={{ opacity: 1, height: 'auto', y: 0 }}
+              animate={{ opacity: 1, height: "auto", y: 0 }}
               exit={{ opacity: 0, height: 0, y: -20 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
             >

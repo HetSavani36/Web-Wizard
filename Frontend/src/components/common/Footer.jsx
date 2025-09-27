@@ -7,7 +7,7 @@ import { BookOpen, Heart, Github, Twitter, Linkedin } from 'lucide-react';
 export default function Footer() {
   return (
     <motion.footer 
-      className="bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 mt-16"
+      className="bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 "
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
@@ -20,7 +20,7 @@ export default function Footer() {
               <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center">
                 <BookOpen className="w-5 h-5 text-white" />
               </div>
-              <span className="text-xl font-bold gradient-text">BlogHub</span>
+              <span className="text-xl font-bold gradient-text">Blogesh</span>
             </div>
             <p className="text-gray-600 dark:text-gray-400 text-sm">
               A modern blogging platform built for creators and readers who love great content and community interaction.
@@ -98,7 +98,7 @@ export default function Footer() {
 
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="text-sm text-gray-600 dark:text-gray-400">
-            © 2025 BlogHub.
+            © 2025 Blogesh.
           </div>
           <div className="flex gap-6 text-sm text-gray-600 dark:text-gray-400">
             <Link href="#" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Privacy Policy</Link>
