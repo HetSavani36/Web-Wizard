@@ -5,6 +5,8 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import ApiError from "../utils/ApiError.js";
 import { User } from "../models/user.model.js";
 import axios from "axios"
+import { Comment } from "../models/comment.model.js";
+
 
 const createPost = asyncHandler(async (req, res) => {
   const { title, content, category, tags } = req.body;
@@ -42,7 +44,7 @@ const createPost = asyncHandler(async (req, res) => {
 
 
 const getAllPosts = asyncHandler(async (req, res) => {
-  const { category, search } = req.query;
+  let { category, search,sortBy="createdAt",order="des" } = req.query;
   let query = {};
 
   // Filter by category
@@ -52,6 +54,27 @@ const getAllPosts = asyncHandler(async (req, res) => {
     query.category=existingCategory._id
   }
   
+  order = order=== "des"?-1:1
+  let sortQuery={}
+  if(sortBy){
+    switch (sortBy) {
+      case "createdAt":
+        sortQuery.createdAt = order;
+        break;
+      case "upVote":
+        sortQuery.upVoteCount = order;
+        break;
+      case "downVote":
+        sortQuery.downVoteCount = order;
+        break;
+      case "views":
+        sortQuery.views = order;
+        break;
+      default:
+        sortQuery.createdAt = -1;
+        break;
+    }
+  }
 
   // Search in title, content, or tags
   if (search) {
@@ -64,10 +87,54 @@ const getAllPosts = asyncHandler(async (req, res) => {
 
   query.draft=false
 
-  const posts = await Post.find(query)
-    .populate("author", "name") // optional
-    .populate("category", "name") // optional, if you want category name
-    .sort({ createdAt: -1 });
+  const posts = await Post.aggregate([
+    {
+      $match: query,
+    },
+    {
+      $addFields: {
+        upVoteCount: { $size: { $ifNull: ["$upVotes", []] } },
+        downVoteCount: { $size: { $ifNull: ["$downVotes", []] } },
+      },
+    },
+    {
+      $sort: sortQuery,
+    },
+    {
+      $lookup: {
+        from: "users",
+        localField: "author",
+        foreignField: "_id",
+        as: "author",
+        pipeline: [
+          {
+            $project: {
+              _id: 0,
+              name: 1,
+            },
+          },
+        ],
+      },
+    },
+    { $unwind: "author" },
+    {
+      $lookup: {
+        from: "categories",
+        localField: "category",
+        foreignField: "_id",
+        as: "category",
+        pipeline: [
+          {
+            $project: {
+              _id: 0,
+              name: 1,
+            },
+          },
+        ],
+      },
+    },
+    { $unwind: "category" },
+  ]);
 
   res.status(200).json({ success: true, data: posts });
 });
@@ -85,9 +152,24 @@ const getPost = asyncHandler(async (req, res) => {
   }
 
   // Add counts for likes and bookmarks
-  post.likesCount = post.likes.length;
-  post.bookmarksCount = post.bookmarks.length;
+  post.upVoteCount= (post.upVotes || []).length
+  post.downVoteCount = (post.downVotes || []).length;
+  post.bookmarksCount = (post.bookmarks || []).length;
 
+  const comments=await Comment.find({postId:post._id})
+      .populate("userId","name")
+      .populate({
+        path:'parentCommentId',
+        populate:{
+          path:'userId',
+          select:'name'
+        }
+      })
+      .sort({createdAt:-1})
+  
+  
+  post.comments=comments
+  post.commentsCount=(comments || []).length
   res.status(200).json({ success: true, data: post });
 });
 
@@ -127,15 +209,6 @@ const deletePost = asyncHandler(async (req, res) => {
 });
 
 
-const getTrendingPosts = asyncHandler(async (req, res) => {
-  const posts = await Post.find()
-    .sort({ views: -1 }) // can also use likes.length for popularity
-    .limit(10)
-    .populate("author", "name")
-    .populate("category","name")
-
-  res.status(200).json({ success: true, data: posts });
-});
 
 
 const incrementViewCount = asyncHandler(async (req, res) => {
@@ -164,7 +237,7 @@ const upVote=asyncHandler(async(req,res)=>{
 
     // If the user had previously downvoted, remove that
     const prevLength=post.downVotes.length
-    post.downvotes = post.downvotes.filter((id) => id.toString() !== userId);
+    post.downVotes = post.downVotes.filter((id) => id.toString() !== userId);
     const length = post.downVotes.length
     
     const user=await User.findById(userId)
@@ -249,7 +322,6 @@ export {
   getPost,
   updatePost,
   deletePost,
-  getTrendingPosts,
   incrementViewCount,
   upVote,
   downVote,

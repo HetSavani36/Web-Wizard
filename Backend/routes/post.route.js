@@ -28,9 +28,6 @@ router
   .patch(verifyJWT, isAdmin, updatePost) // Admin only
   .delete(verifyJWT, isAdmin, deletePost); // Admin only
 
-// Trending posts (Public)
-router.get("/trending", getTrendingPosts);
-
 // Increment post views
 router.patch("/:id/views", incrementViewCount);
 
