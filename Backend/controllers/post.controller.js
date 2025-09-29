@@ -170,6 +170,8 @@ const getPost = asyncHandler(async (req, res) => {
   
   post.comments=comments
   post.commentsCount=(comments || []).length
+
+  await post.save()
   res.status(200).json({ success: true, data: post });
 });
 

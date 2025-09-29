@@ -5,7 +5,6 @@ import {
   getPost,
   updatePost,
   deletePost,
-  getTrendingPosts,
   incrementViewCount,
   upVote,
   downVote,
