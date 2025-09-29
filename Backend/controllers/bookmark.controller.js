@@ -20,8 +20,8 @@ const addBookmark = asyncHandler(async (req, res) => {
   }
 
   const bookmark = await Bookmark.create({
-    user: userId,
-    post: postId,
+    userId: userId,
+    postId: postId,
   });
 
   res.status(201).json({ success: true, data: bookmark });
@@ -58,7 +58,7 @@ const getUserBookmarks = asyncHandler(async (req, res) => {
     throw new Error("You can only view your own bookmarks");
   }
 
-  const bookmarks = await Bookmark.find({ user: userId }).populate("post");
+  const bookmarks = await Bookmark.find({ userId: userId }).populate("postId");
   res.status(200).json({ success: true, data: bookmarks });
 });
 
