@@ -6,6 +6,7 @@ import {
   getUserDashboardAnalytics,
   getAdminDashboardAnalytics,
   getUserManagementAnalytics,
+  getReportAnalytics,
 } from "../controllers/analytics.controller.js";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
 import isAdmin from "../middlewares/isAdmin.middleware.js";
@@ -23,4 +24,5 @@ router.get("/admin", verifyJWT, isAdmin, getAdminDashboardAnalytics);
 
 router.get("/user/management", verifyJWT, isAdmin, getUserManagementAnalytics);
 
+router.get("/report",verifyJWT,isAdmin,getReportAnalytics)
 export default router;

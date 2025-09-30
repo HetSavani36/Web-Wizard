@@ -6,6 +6,7 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import {Bookmark} from "../models/bookmark.model.js"
 import ApiResponse from "../utils/ApiResponse.js";
 import { Category } from "../models/category.model.js";
+import { Report } from "../models/report.model.js";
 
 
 const getTrendingAnalytics = asyncHandler(async (req, res) => {
@@ -183,6 +184,43 @@ const getUserManagementAnalytics=asyncHandler(async(req,res)=>{
       )
 })
 
+
+const getReportAnalytics = asyncHandler(async (req, res) => {
+  const result = await Report.aggregate([
+    {
+      $group: {
+        _id: null,
+        totalReports: { $sum: 1 },
+        pending: { $sum: { $cond: [{ $eq: ["$status", "Pending"] }, 1, 0] } },
+        resolved: { $sum: { $cond: [{ $eq: ["$status", "Resolved"] }, 1, 0] } },
+        dismissed: {
+          $sum: { $cond: [{ $eq: ["$status", "Dismissed"] }, 1, 0] },
+        },
+        highPriority: {
+          $sum: { $cond: [{ $eq: ["$severity", "High"] }, 1, 0] },
+        },
+        mediumPriority: {
+          $sum: { $cond: [{ $eq: ["$severity", "Medium"] }, 1, 0] },
+        },
+        lowPriority: { $sum: { $cond: [{ $eq: ["$severity", "Low"] }, 1, 0] } },
+      },
+    },
+  ]);
+
+  const analytics = result[0] || {
+    totalReports: 0,
+    pending: 0,
+    resolved: 0,
+    dismissed: 0,
+    highPriority: 0,
+    mediumPriority: 0,
+    lowPriority: 0,
+  };
+
+  res.json(new ApiResponse(200, analytics, "Reports analytics"));
+});
+
+
 export {
   getTrendingAnalytics,
   getLeaderboard,
@@ -190,4 +228,5 @@ export {
   getUserDashboardAnalytics,
   getAdminDashboardAnalytics,
   getUserManagementAnalytics,
+  getReportAnalytics,
 };
