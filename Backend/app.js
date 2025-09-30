@@ -33,7 +33,7 @@ import commentRouter from "./routes/comment.route.js";
 import postRouter from "./routes/post.route.js";
 import userRouter from "./routes/user.route.js";
 import aiIntegrationRouter from "./routes/aiIntegration.route.js";
-
+import reportRouter from "./routes/report.route.js"
 
 app.use("/auth",authRouter)
 app.use("/analytics", analyticsRouter);
@@ -42,6 +42,7 @@ app.use("/categories", categoryRouter);
 app.use("/comments", commentRouter);
 app.use("/posts", postRouter);
 app.use("/users", userRouter);
+app.use("/reports", reportRouter);
 app.use("/aiIntegrations", aiIntegrationRouter);
 
 
