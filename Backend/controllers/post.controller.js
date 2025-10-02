@@ -85,7 +85,7 @@ const getAllPosts = asyncHandler(async (req, res) => {
     ];
   }
 
-  query.draft=false
+  query.isDraft=false
 
   const posts = await Post.aggregate([
     {
@@ -116,7 +116,7 @@ const getAllPosts = asyncHandler(async (req, res) => {
         ],
       },
     },
-    { $unwind: "author" },
+    { $unwind: "$author" },
     {
       $lookup: {
         from: "categories",
@@ -133,7 +133,7 @@ const getAllPosts = asyncHandler(async (req, res) => {
         ],
       },
     },
-    { $unwind: "category" },
+    { $unwind: "$category" },
   ]);
 
   res.status(200).json({ success: true, data: posts });
