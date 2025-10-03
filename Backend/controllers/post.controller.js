@@ -6,6 +6,8 @@ import ApiError from "../utils/ApiError.js";
 import { User } from "../models/user.model.js";
 import axios from "axios"
 import { Comment } from "../models/comment.model.js";
+import { Subscribe } from "../models/subscribe.model.js";
+import { sendEmail } from "../utils/email.js";
 
 
 const createPost = asyncHandler(async (req, res) => {
@@ -38,6 +40,22 @@ const createPost = asyncHandler(async (req, res) => {
     aiSummary: aiSummary, //ai generated summary
   });
   if(!post) throw new ApiError(500,"post not created")
+
+  let subscribers=await Subscribe.find()
+  subscribers=subscribers.filter(subscriber=>subscriber.categories.includes(category) || subscriber.categories.length==0)
+
+  for (const subscriber of subscribers) {
+    try {
+      await sendEmail(
+        subscriber.email, 
+        "New Post Available",
+        `A new post "${post.title}" has been published in ${category}.`,
+        null 
+      );
+    } catch (err) {
+      console.error(`Failed to send email to ${subscriber.email}`, err);
+    }
+  }
 
   res.status(201).json({ success: true, data: post });
 });
